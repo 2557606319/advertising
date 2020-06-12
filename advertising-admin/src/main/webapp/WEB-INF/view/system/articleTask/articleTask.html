@@ -1,0 +1,38 @@
+@layout("/common/_container.html"){
+<div class="row">
+    <div class="col-sm-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>文章金币任务表管理</h5>
+            </div>
+            <div class="ibox-content">
+                <div class="row row-lg">
+                    <div class="col-sm-12">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <#NameCon id="condition" name="名称" />
+                            </div>
+                            <div class="col-sm-3">
+                                <#button name="搜索" icon="fa-search" clickFun="ArticleTask.search()"/>
+                            </div>
+                        </div>
+                        <div class="hidden-xs" id="ArticleTaskTableToolbar" role="group">
+                            @if(shiro.hasPermission("/articleTask/add")){
+                                <#button name="添加" icon="fa-plus" clickFun="ArticleTask.openAddArticleTask()"/>
+                            @}
+                            @if(shiro.hasPermission("/articleTask/update")){
+                                <#button name="修改" icon="fa-edit" clickFun="ArticleTask.openArticleTaskDetail()" space="true"/>
+                            @}
+                            @if(shiro.hasPermission("/articleTask/delete")){
+                                <#button name="删除" icon="fa-remove" clickFun="ArticleTask.delete()" space="true"/>
+                            @}
+                        </div>
+                        <#table id="ArticleTaskTable"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="${ctxPath}/static/modular/system/articleTask/articleTask.js"></script>
+@}

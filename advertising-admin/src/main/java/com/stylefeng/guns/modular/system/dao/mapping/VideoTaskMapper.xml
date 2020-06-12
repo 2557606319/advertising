@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.stylefeng.guns.modular.system.dao.VideoTaskMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.stylefeng.guns.modular.system.model.VideoTask">
+        <id column="id" property="id" />
+        <result column="user_id" property="userId" />
+        <result column="award" property="award" />
+        <result column="sum_award" property="sumAward" />
+        <result column="expire" property="expire" />
+        <result column="ctime" property="ctime" />
+        <result column="generalize_count" property="generalizeCount" />
+        <result column="look_count" property="lookCount" />
+        <result column="advertising_id" property="advertisingId" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, user_id, award, sum_award, expire, ctime, generalize_count, look_count, advertising_id
+    </sql>
+
+</mapper>

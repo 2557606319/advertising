@@ -1,0 +1,113 @@
+server:
+  port: 8081
+
+guns:
+  swagger-open: true              #是否开启swagger (true/false)
+  kaptcha-open: false             #是否开启登录时验证码 (true/false)
+#  file-upload-path: d:/tmp       #文件上传目录(不配置的话为java.io.tmpdir目录)
+  spring-session-open: false      #是否开启spring session,如果是多机环境需要开启(true/false)
+  session-invalidate-time: 1800     #session失效时间(只在单机环境下生效，多机环境在SpringSessionConfig类中配置) 单位：秒
+  session-validation-interval: 900  #多久检测一次失效的session(只在单机环境下生效) 单位：秒
+
+spring:
+  profiles:
+    active: local
+
+  mvc:
+    static-path-pattern: /static/**
+    view:
+      prefix: /WEB-INF/view
+  devtools:
+    restart:
+      enabled: false
+      additional-paths: src/main/java
+      exclude: static/**,WEB-INF/view/**
+  servlet:
+    multipart:
+      max-request-size: 100MB
+      max-file-size: 100MB
+
+mybatis-plus:
+  typeAliasesPackage: com.stylefeng.guns.modular.system.model
+
+log:
+  path: shini-logs
+
+
+##################  微信公众号配置 ##############
+wx:
+  mp:
+    user-info-url: https://api.weixin.qq.com/sns/userinfo #拉取微信用户信息地址
+    login-a-token-url: https://api.weixin.qq.com/sns/oauth2/access_token?appid=wxfb3355958b897680&secret=acb42d72ebad66048f81d84e2318c2e8 #登录授权获取code后，请求以下链接获取access_token
+    login-suc-url: http://joeyjava.ticp.io/advertising/home5.html #登录授权成功跳转地址
+    configs:
+      - appId: wxfb3355958b897680 #公众号的appid
+        secret: acb42d72ebad66048f81d84e2318c2e8 #公众号的appsecret
+#        secret: 15d86c2286392e6ce2398553142dfa0b #公众号的appsecret
+        token: WfhnJN1Y6hke3T1F33N5k5K13Z5ui3zE #（接口配置里的Token值）
+        aesKey: qHrUCAMBYXJEGX45kmMJFaMwP1wRTLeycZO8mAKpTrs #（接口配置里的EncodingAESKey值）
+  pay:
+    appId: wxfb3355958b897680 #微信公众号的appid
+    mchId: 1561935731 #微信支付商户号
+    mchKey: I5FE19P9R9r0ue0BTuRI0Kl5Ae6bUcrb #微信支付商户密钥
+    subAppId: #服务商模式下的子商户公众账号ID
+    subMchId: #服务商模式下的子商户号
+    #keyPath:  classpath:cert/apiclient_cert.p12 # p12证书的位置，可以指定绝对路径，也可以指定类路径（以classpath:开头）
+    #keyPath:  C:\Users\26672\IdeaProjects\netwhale_shop\netwhale_shop\netWhale-parent\shop-admin\src\main\resources\cert\apiclient_cert.p12 # p12证书的位置，可以指定绝对路径，也可以指定类路径（以classpath:开头）
+    keyPath: C:\cert\apiclient_cert.p12
+    notifyUrl: http://m.netwhale.cn/wx-shop/rest/wx/update_submitOrder
+    refundNotifyUrl: http://m.netwhale.cn/wx-shop/rest/wx/refundNotify
+
+---
+
+spring:
+  profiles: local
+  datasource:
+    url: jdbc:mysql://localhost:3306/advertising_test?autoReconnect=true&useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=CONVERT_TO_NULL&useSSL=false&serverTimezone=UTC
+    username: root
+    password: 123123
+    db-name: advertising-test #用来搜集数据库的所有表
+    filters: wall,mergeStat
+
+#多数据源情况的配置
+#guns:
+#  muti-datasource:
+#    open: false
+#    url: jdbc:mysql://139.155.71.242/:3306/guns_test?autoReconnect=true&useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=CONVERT_TO_NULL&useSSL=false&serverTimezone=UTC
+#    username: root
+#    password: root
+#    dataSourceNames:
+#      - dataSourceGuns
+#      - dataSourceBiz
+
+---
+
+spring:
+  profiles: dev
+  datasource:
+    url: jdbc:mysql://139.155.71.242:3306/advertising?autoReconnect=true&useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=CONVERT_TO_NULL&useSSL=false&serverTimezone=UTC
+    username: advertising
+    password: btM36WXJnFtH4mCf
+    db-name: advertising #用来搜集数据库的所有表
+    filters: wall,mergeStat
+
+---
+
+spring:
+  profiles: test
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/guns?autoReconnect=true&useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=CONVERT_TO_NULL&useSSL=false&serverTimezone=UTC
+    username: root
+    password: root
+    filters: wall,mergeStat
+
+---
+
+spring:
+  profiles: produce
+  datasource:
+      url: jdbc:mysql://127.0.0.1:3306/advertising?autoReconnect=true&useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=CONVERT_TO_NULL&useSSL=false&serverTimezone=UTC
+      username: advertising
+      password: btM36WXJnFtH4mCf
+      filters: wall,mergeStat
+

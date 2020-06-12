@@ -1,0 +1,34 @@
+@layout("/common/_container.html"){
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <div class="form-horizontal">
+
+            <div class="row">
+                <div class="col-sm-6 b-r">
+                            <#input id="id" name=" " underline="true"/>
+                            <#input id="issueId" name="发布id" underline="true"/>
+                            <#input id="taskRelationId" name="任务分享id" underline="true"/>
+                            <#input id="lookUserId" name="浏览用户id" underline="true"/>
+                            <#input id="lookTime" name="浏览时长"/>
+                </div>
+
+                <div class="col-sm-6">
+                            <#input id="isClick" name="是否点击广告 0-未点击 1-已点击" underline="true"/>
+                            <#input id="isCopy" name="是否复制商品链接" underline="true"/>
+                            <#input id="isRelation" name="是否点击联系方式" underline="true"/>
+                            <#input id="ctime" name="" underline="true"/>
+                </div>
+            </div>
+
+            <div class="row btn-group-m-t">
+                <div class="col-sm-10">
+                    <#button btnCss="info" name="提交" id="ensure" icon="fa-check" clickFun="VideoIssueLooksInfoDlg.addSubmit()"/>
+                    <#button btnCss="danger" name="取消" id="cancel" icon="fa-eraser" clickFun="VideoIssueLooksInfoDlg.close()"/>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script src="${ctxPath}/static/modular/system/videoIssueLooks/videoIssueLooks_info.js"></script>
+@}

@@ -1,0 +1,44 @@
+@layout("/common/_container.html"){
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <div class="form-horizontal">
+
+            <div class="row">
+                <div class="col-sm-6 b-r">
+                            <#input id="id" name="" underline="true"/>
+                            <#input id="nick" name="昵称" underline="true"/>
+                            <#input id="avatar" name="" underline="true"/>
+                            <#input id="industry" name="行业" underline="true"/>
+                            <#input id="professional" name="职业" underline="true"/>
+                            <#input id="phone" name="" underline="true"/>
+                            <#input id="wxqr" name="微信二维码" underline="true"/>
+                            <#input id="email" name="" underline="true"/>
+                            <#input id="goldBalance" name="金币余额" underline="true"/>
+                            <#input id="sumCommission" name="总获佣金"/>
+                </div>
+
+                <div class="col-sm-6">
+                            <#input id="sumLower" name="总获下级佣金" underline="true"/>
+                            <#input id="vip" name="是否为vip 0-不是  1-是" underline="true"/>
+                            <#input id="vipExpire" name="vip到期时间" underline="true"/>
+                            <#input id="agencyLevel" name="代理登记 0-青铜 1-黄金 2-钻石" underline="true"/>
+                            <#input id="earnings1" name="一层返佣比例" underline="true"/>
+                            <#input id="earnings2" name="二层返佣比例" underline="true"/>
+                            <#input id="earnings3" name="三层返佣比例" underline="true"/>
+                            <#input id="ctime" name="" underline="true"/>
+                            <#input id="pid" name="邀请人" underline="true"/>
+                </div>
+            </div>
+
+            <div class="row btn-group-m-t">
+                <div class="col-sm-10">
+                    <#button btnCss="info" name="提交" id="ensure" icon="fa-check" clickFun="ClientUserInfoDlg.addSubmit()"/>
+                    <#button btnCss="danger" name="取消" id="cancel" icon="fa-eraser" clickFun="ClientUserInfoDlg.close()"/>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script src="${ctxPath}/static/modular/system/clientUser/clientUser_info.js"></script>
+@}

@@ -1,0 +1,31 @@
+@layout("/common/_container.html"){
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <div class="form-horizontal">
+
+            <div class="row">
+                <div class="col-sm-6 b-r">
+                            <#input id="id" name="" value="${item.id}" underline="true"/>
+                            <#input id="userId" name="" value="${item.userId}" underline="true"/>
+                            <#input id="goldNum" name="金币数" value="${item.goldNum}" />
+                </div>
+
+                <div class="col-sm-6">
+                            <#input id="direction" name="收入支出  0-收入 1-支出" value="${item.direction}" underline="true"/>
+                            <#input id="remark" name="" value="${item.remark}" underline="true"/>
+                            <#input id="ctime" name="" value="${item.ctime}" />
+                </div>
+            </div>
+
+            <div class="row btn-group-m-t">
+                <div class="col-sm-10">
+                    <#button btnCss="info" name="提交" id="ensure" icon="fa-check" clickFun="GoldDetailsInfoDlg.editSubmit()"/>
+                    <#button btnCss="danger" name="取消" id="cancel" icon="fa-eraser" clickFun="GoldDetailsInfoDlg.close()"/>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script src="${ctxPath}/static/modular/system/goldDetails/goldDetails_info.js"></script>
+@}

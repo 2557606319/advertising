@@ -1,0 +1,33 @@
+@layout("/common/_container.html"){
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <div class="form-horizontal">
+
+            <div class="row">
+                <div class="col-sm-6 b-r">
+                            <#input id="id" name="" value="${item.id}" underline="true"/>
+                            <#input id="userId" name="发布用户" value="${item.userId}" underline="true"/>
+                            <#input id="videoId" name="文章素材id" value="${item.videoId}" underline="true"/>
+                            <#input id="commentCount" name="评论数" value="${item.commentCount}" />
+                </div>
+
+                <div class="col-sm-6">
+                            <#input id="lookCount" name="阅读数" value="${item.lookCount}" underline="true"/>
+                            <#input id="likeCount" name="喜欢数" value="${item.likeCount}" underline="true"/>
+                            <#input id="advertisingId" name="展示广告id" value="${item.advertisingId}" underline="true"/>
+                            <#input id="ctime" name="" value="${item.ctime}" />
+                </div>
+            </div>
+
+            <div class="row btn-group-m-t">
+                <div class="col-sm-10">
+                    <#button btnCss="info" name="提交" id="ensure" icon="fa-check" clickFun="VideoIssueInfoDlg.editSubmit()"/>
+                    <#button btnCss="danger" name="取消" id="cancel" icon="fa-eraser" clickFun="VideoIssueInfoDlg.close()"/>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script src="${ctxPath}/static/modular/system/videoIssue/videoIssue_info.js"></script>
+@}

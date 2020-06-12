@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.stylefeng.guns.modular.system.dao.AdvertisingMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.stylefeng.guns.modular.system.model.Advertising">
+        <id column="id" property="id" />
+        <result column="title" property="title" />
+        <result column="describe" property="describe" />
+        <result column="cover" property="cover" />
+        <result column="is_default" property="isDefault" />
+        <result column="href" property="href" />
+        <result column="goods_command" property="goodsCommand" />
+        <result column="user_id" property="userId" />
+        <result column="award" property="award" />
+        <result column="sum_award" property="sumAward" />
+        <result column="expire" property="expire" />
+        <result column="ctime" property="ctime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        `id`, `title`, `describe`, `cover`,`is_default`, `href`, `goods_command`, `user_id`, `award`, `sum_award`, `expire`, `ctime`
+    </sql>
+
+
+    <select id="defaultAdv" resultMap="BaseResultMap" >
+        select <include refid="Base_Column_List"></include>
+        from tb_advertising where user_id = #{uid} and is_default = 1
+    </select>
+</mapper>

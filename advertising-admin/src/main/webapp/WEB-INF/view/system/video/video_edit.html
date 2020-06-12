@@ -1,0 +1,32 @@
+@layout("/common/_container.html"){
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <div class="form-horizontal">
+
+            <div class="row">
+                <div class="col-sm-6 b-r">
+                            <#input id="id" name="" value="${item.id}" underline="true"/>
+                            <#input id="userId" name="创建用户" value="${item.userId}" underline="true"/>
+                            <#input id="ctime" name="" value="${item.ctime}" underline="true"/>
+                            <#input id="title" name="" value="${item.title}" />
+                </div>
+
+                <div class="col-sm-6">
+                            <#input id="describe" name="" value="${item.describe}" underline="true"/>
+                            <#input id="previews" name="预览图" value="${item.previews}" underline="true"/>
+                            <#input id="url" name="视频地址" value="${item.url}" />
+                </div>
+            </div>
+
+            <div class="row btn-group-m-t">
+                <div class="col-sm-10">
+                    <#button btnCss="info" name="提交" id="ensure" icon="fa-check" clickFun="VideoInfoDlg.editSubmit()"/>
+                    <#button btnCss="danger" name="取消" id="cancel" icon="fa-eraser" clickFun="VideoInfoDlg.close()"/>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script src="${ctxPath}/static/modular/system/video/video_info.js"></script>
+@}

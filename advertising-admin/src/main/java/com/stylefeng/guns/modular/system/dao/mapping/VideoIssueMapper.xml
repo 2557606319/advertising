@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.stylefeng.guns.modular.system.dao.VideoIssueMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.stylefeng.guns.modular.system.model.VideoIssue">
+        <id column="id" property="id" />
+        <result column="user_id" property="userId" />
+        <result column="video_id" property="videoId" />
+        <result column="comment_count" property="commentCount" />
+        <result column="look_count" property="lookCount" />
+        <result column="like_count" property="likeCount" />
+        <result column="advertising_id" property="advertisingId" />
+        <result column="ctime" property="ctime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, user_id, video_id, comment_count, look_count, like_count, advertising_id, ctime
+    </sql>
+
+</mapper>
