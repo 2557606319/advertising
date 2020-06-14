@@ -12,6 +12,7 @@ import com.stylefeng.guns.modular.api.vo.ResultBody;
 import com.stylefeng.guns.modular.system.dao.*;
 import com.stylefeng.guns.modular.system.model.*;
 import com.stylefeng.guns.modular.system.service.IArticleService;
+import com.stylefeng.guns.modular.system.service.IArticleTaskService;
 import com.stylefeng.guns.modular.system.service.IClientUserService;
 import com.stylefeng.guns.modular.system.service.IUserService;
 import com.stylefeng.guns.modular.system.service.processor.ArticleProcessor;
@@ -66,6 +67,9 @@ public class RestArticleController extends BaseController {
 
     @Autowired
     private IClientUserService clientUserService;
+
+    @Autowired
+    private IArticleTaskService articleTaskService;
 
     @ApiOperation("首页素材列表展示")
     @PostMapping("/article/list")
@@ -287,5 +291,11 @@ public class RestArticleController extends BaseController {
         }
         return new ResultBody(issue);
     }
+
+//    public ResultBody issueTaskList(){
+//        List<ArticleTask> articleTasks = articleTaskService.selectList(null);
+//
+//
+//    }
 }
 

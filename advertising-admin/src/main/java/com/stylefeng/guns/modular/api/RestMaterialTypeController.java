@@ -31,7 +31,8 @@ public class RestMaterialTypeController extends BaseController {
         List<Type> types=new ArrayList<>();
         try{
             Long uid = JwtTokenUtil.getClientUserIdFromToken();
-            types = typeMapper.findListByUid(uid);
+//            types = typeMapper.findListByUid(uid);
+            types = typeMapper.selectList(null);
 
         }catch (Exception e){
             //未登录或者token有误

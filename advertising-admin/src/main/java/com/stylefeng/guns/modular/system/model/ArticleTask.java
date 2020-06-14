@@ -61,6 +61,12 @@ public class ArticleTask extends Model<ArticleTask> {
     @TableField("advertising_id")
     private Long advertisingId;
 
+    /**
+     * 关联素材id
+     */
+    @TableField("relation_id")
+    private Long relationId;
+
     @Override
     protected Serializable pkVal() {
         return this.id;

@@ -142,7 +142,7 @@ public class RestAdvController extends BaseController {
             articleTaskMapper.insert(articleTask);
 
             //绑定任务
-            videoIssueMapper.settingTask(uid,advertising.getId(),articleTask.getId());
+            videoIssueMapper.settingTask(uid,advertising.getId(),videoTask.getId());
             articleIssueMapper.settingTask(uid,advertising.getId(),articleTask.getId());
         }else{
             ArticleTask articleTask= articleTasks.get(0);

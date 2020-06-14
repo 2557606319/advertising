@@ -156,6 +156,7 @@ public class RestVideoController extends BaseController {
         try {
             where.put("user_id", JwtTokenUtil.getClientUserIdFromToken());
         } catch (Exception e) {
+            return new ResultBody(result);
         }
         List<VideoIssue> videoIssues = videoIssueMapper.selectByMap(where);
         if (videoIssues.size() > 0)
