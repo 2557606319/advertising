@@ -49,6 +49,9 @@ public class RestAdvController extends BaseController {
 
     @Autowired
     ArticleTaskMapper articleTaskMapper;
+
+    @Autowired
+    VideoTaskMapper videoTaskMapper;
     /**
      * 查询用户的广告列表
      * @return
@@ -122,6 +125,7 @@ public class RestAdvController extends BaseController {
         where.put("advertising_id",advertising.getId());
 
         List<ArticleTask> articleTasks = articleTaskMapper.selectByMap(where);
+        List<VideoTask> videoTasks = videoTaskMapper.selectByMap(where);
 
         //第一次发布任务
         if(articleTasks.size()==0){
@@ -131,18 +135,8 @@ public class RestAdvController extends BaseController {
             articleTask.setUserId(uid);
             articleTask.setSumAward(advertising.getSumAward());
             articleTask.setAward(advertising.getAward());
-            articleTaskMapper.insert(articleTask);
-
-            VideoTask videoTask= new VideoTask();
-            videoTask.setAdvertisingId(advertising.getId());
-            videoTask.setExpire(advertising.getExpire());
-            videoTask.setUserId(uid);
-            videoTask.setSumAward(advertising.getSumAward());
-            videoTask.setAward(advertising.getAward());
-            articleTaskMapper.insert(articleTask);
-
             //绑定任务
-            videoIssueMapper.settingTask(uid,advertising.getId(),videoTask.getId());
+            articleTaskMapper.insert(articleTask);
             articleIssueMapper.settingTask(uid,advertising.getId(),articleTask.getId());
         }else{
             ArticleTask articleTask= articleTasks.get(0);
@@ -150,6 +144,23 @@ public class RestAdvController extends BaseController {
             articleTask.setSumAward(advertising.getSumAward());
             articleTask.setAward(advertising.getAward());
             articleTaskMapper.updateById(articleTask);
+        }
+
+        if(videoTasks.size()==0){
+            VideoTask videoTask= new VideoTask();
+            videoTask.setAdvertisingId(advertising.getId());
+            videoTask.setExpire(advertising.getExpire());
+            videoTask.setUserId(uid);
+            videoTask.setSumAward(advertising.getSumAward());
+            videoTask.setAward(advertising.getAward());
+            videoTaskMapper.insert(videoTask);
+            videoIssueMapper.settingTask(uid,advertising.getId(),videoTask.getId());
+        }else{
+            VideoTask videoTask= videoTasks.get(0);
+            videoTask.setExpire(advertising.getExpire());
+            videoTask.setSumAward(advertising.getSumAward());
+            videoTask.setAward(advertising.getAward());
+            videoTaskMapper.updateById(videoTask);
         }
         return new ResultBody(true);
     }

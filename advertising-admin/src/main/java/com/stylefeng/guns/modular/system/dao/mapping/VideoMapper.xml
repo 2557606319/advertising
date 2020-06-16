@@ -31,7 +31,7 @@
         </if>
         ORDER BY look_count DESC
         <if test="offset != null">
-            Limit ${offset},${limit}
+            Limit #{offset},#{limit}
         </if>
     </select>
 

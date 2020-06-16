@@ -18,4 +18,19 @@ public class ArticleDto extends BaseEntity {
     private String previews;//封面
     private Long commentCount;
     private Long advId;//广告id
+
+    //任务信息
+    private Long issueId;//发布id
+    private Long taskId;//任务id
+    private Integer award;//阅读奖励金币
+    private Long sumAward;//总奖励金币
+    private String expire;//到期时间
+    private String ctime;
+    private Integer generalizeCount;//推广人数
+    private Integer taskLookCount;//任务浏览人数
+
+    //用户头像
+    private Long uid;
+    private String avatar;
+    private String nick;
 }

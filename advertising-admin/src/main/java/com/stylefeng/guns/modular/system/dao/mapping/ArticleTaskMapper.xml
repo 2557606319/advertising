@@ -20,4 +20,12 @@
         id, user_id, award, sum_award, expire, ctime, generalize_count, look_count, advertising_id
     </sql>
 
+    <select id="taskArticleList" resultType="com.stylefeng.guns.modular.api.dto.ArticleDto">
+        select a.id,a.title,a.previews,b.id as issueId,c.award,c.sum_award as sumAward,c.expire,c.id as taskId from
+        tb_article as a
+        left join tb_article_issue as b on a.id = b.article_id
+        left join tb_article_task as c on b.task_id = c.id
+        where b.task_id != 0 limit #{offset},#{limit}
+    </select>
+
 </mapper>
