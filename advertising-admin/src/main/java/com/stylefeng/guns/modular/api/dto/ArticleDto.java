@@ -27,7 +27,7 @@ public class ArticleDto extends BaseEntity {
     private String expire;//到期时间
     private String ctime;
     private Integer generalizeCount;//推广人数
-    private Integer taskLookCount;//任务浏览人数
+    private Integer taskLookCount;//任务阅读人数
 
     //用户头像
     private Long uid;

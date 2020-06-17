@@ -22,10 +22,11 @@
 
 
     <select id="taskVideoList" resultType="com.stylefeng.guns.modular.api.dto.VideoDto">
-        select a.id,a.title,a.previews,b.id as issueId,c.award,c.sum_award as sumAward,c.expire,c.id as taskId from
+        select a.id,a.title,a.previews,b.id as issueId,c.award,c.sum_award as sumAward,c.expire,c.id as taskId,d.id as uid,d.avatar,d.nick from
         tb_video as a
         left join tb_video_issue as b on a.id = b.video_id
         left join tb_video_task as c on b.task_id = c.id
+        left join tb_client_user as d on c.user_id = d.id
         where b.task_id != 0 limit #{offset},#{limit}
     </select>
 </mapper>
