@@ -25,7 +25,7 @@ public class RestTaskController {
     @GetMapping("/task/videos")
     public ResultBody videoTaskList(VideoDto videoDto){
        List<VideoDto> videoDtos = videoTaskMapper.taskVideoList(videoDto);
-       return new ResultBody(videoDto);
+       return new ResultBody(videoDtos);
     }
 
     @GetMapping("/task/articles")

@@ -22,7 +22,7 @@
 
 
     <select id="taskVideoList" resultType="com.stylefeng.guns.modular.api.dto.VideoDto">
-        select a.id,a.title,a.previews,b.id as issueId,c.award,c.sum_award as sumAward,c.expire,c.id as taskId,d.id as uid,d.avatar,d.nick from
+        select a.id,a.title,a.previews,b.id as issueId,c.award,c.sum_award as sumAward,c.expire,c.id as taskId,c.generalize_count as generalizeCount,d.id as uid,d.avatar,d.nick from
         tb_video as a
         left join tb_video_issue as b on a.id = b.video_id
         left join tb_video_task as c on b.task_id = c.id
