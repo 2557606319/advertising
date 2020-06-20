@@ -54,6 +54,8 @@ public class RestVideoController extends BaseController {
     @Autowired
     private VideoIssueMapper issueMapper;
 
+    @Autowired
+    private VideoTaskMapper videoTaskMapper;
 
     final Base64.Decoder decoder = Base64.getDecoder();
 
@@ -296,6 +298,10 @@ public class RestVideoController extends BaseController {
             issue.setVideoId(vid);
             issue.setUserId(uid);
             issue.setAdvertisingId(advId);
+            where.clear();
+            where.put("advertising_id",advId);
+            List<VideoTask> tasks = videoTaskMapper.selectByMap(where);
+            if(tasks.size()>0)issue.setTaskId(tasks.get(0).getId());
             videoIssueMapper.insert(issue);
         } else {
             issue = videoIssue.get(0);

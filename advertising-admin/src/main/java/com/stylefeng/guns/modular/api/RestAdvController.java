@@ -127,9 +127,11 @@ public class RestAdvController extends BaseController {
         List<ArticleTask> articleTasks = articleTaskMapper.selectByMap(where);
         List<VideoTask> videoTasks = videoTaskMapper.selectByMap(where);
 
+        ArticleTask articleTask;
+
         //第一次发布任务
         if(articleTasks.size()==0){
-            ArticleTask articleTask= new ArticleTask();
+            articleTask=new ArticleTask();
             articleTask.setAdvertisingId(advertising.getId());
             articleTask.setExpire(advertising.getExpire());
             articleTask.setUserId(uid);
@@ -137,31 +139,33 @@ public class RestAdvController extends BaseController {
             articleTask.setAward(advertising.getAward());
             //绑定任务
             articleTaskMapper.insert(articleTask);
-            articleIssueMapper.settingTask(uid,advertising.getId(),articleTask.getId());
         }else{
-            ArticleTask articleTask= articleTasks.get(0);
+            articleTask= articleTasks.get(0);
             articleTask.setExpire(advertising.getExpire());
             articleTask.setSumAward(advertising.getSumAward());
             articleTask.setAward(advertising.getAward());
             articleTaskMapper.updateById(articleTask);
         }
+        articleIssueMapper.settingTask(uid,advertising.getId(),articleTask.getId());
 
+        VideoTask videoTask;
         if(videoTasks.size()==0){
-            VideoTask videoTask= new VideoTask();
+            videoTask= new VideoTask();
             videoTask.setAdvertisingId(advertising.getId());
             videoTask.setExpire(advertising.getExpire());
             videoTask.setUserId(uid);
             videoTask.setSumAward(advertising.getSumAward());
             videoTask.setAward(advertising.getAward());
             videoTaskMapper.insert(videoTask);
-            videoIssueMapper.settingTask(uid,advertising.getId(),videoTask.getId());
         }else{
-            VideoTask videoTask= videoTasks.get(0);
+            videoTask= videoTasks.get(0);
             videoTask.setExpire(advertising.getExpire());
             videoTask.setSumAward(advertising.getSumAward());
             videoTask.setAward(advertising.getAward());
             videoTaskMapper.updateById(videoTask);
         }
+        videoIssueMapper.settingTask(uid,advertising.getId(),videoTask.getId());
+
         return new ResultBody(true);
     }
 

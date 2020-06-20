@@ -69,7 +69,7 @@ public class RestArticleController extends BaseController {
     private IClientUserService clientUserService;
 
     @Autowired
-    private IArticleTaskService articleTaskService;
+    private ArticleTaskMapper articleTaskMapper;
 
     @ApiOperation("首页素材列表展示")
     @PostMapping("/article/list")
@@ -283,6 +283,10 @@ public class RestArticleController extends BaseController {
             issue.setArticleId(articleId);
             issue.setUserId(uid);
             issue.setAdvertisingId(advId);
+            where.clear();
+            where.put("advertising_id",advId);
+            List<ArticleTask> tasks = articleTaskMapper.selectByMap(where);
+            if(tasks.size()>0)issue.setTaskId(tasks.get(0).getId());
             articleIssueMapper.insert(issue);
         } else {
             issue = articleIssues.get(0);
