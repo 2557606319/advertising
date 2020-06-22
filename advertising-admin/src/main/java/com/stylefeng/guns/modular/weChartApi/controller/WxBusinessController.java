@@ -87,7 +87,7 @@ public class WxBusinessController extends BaseController {
             JSONObject respBody = JSONObject.parseObject(EntityUtils.toString(reqTokenResponse.getEntity()));
             if(respBody.get("errcode")!=null){
                 log.error("微信授权登录，获取access_token失败！errCode:{} errMsg:{}",respBody.get("errcode"),respBody.get("errmsg"));
-                response.sendRedirect("http://m.netwhale.cn/we-shop/rest/wx/index.html");
+                response.sendRedirect("http://www.szrfweb.wang/advertising/home1.html");
                 return;
             }
 

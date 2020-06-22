@@ -39,6 +39,7 @@ wx:
   mp:
     user-info-url: https://api.weixin.qq.com/sns/userinfo #拉取微信用户信息地址
     login-a-token-url: https://api.weixin.qq.com/sns/oauth2/access_token?appid=wxfb3355958b897680&secret=acb42d72ebad66048f81d84e2318c2e8 #登录授权获取code后，请求以下链接获取access_token
+#    login-suc-url: http://www.szrfweb.wang/advertising/home5.html #登录授权成功跳转地址
     login-suc-url: http://joeyjava.ticp.io/advertising/home5.html #登录授权成功跳转地址
     configs:
       - appId: wxfb3355958b897680 #公众号的appid

@@ -44,11 +44,12 @@ public class ApiController extends BaseController {
     }
 
     /**
-     * 是否登录
+     * 是否登录,返回用户id
      */
     @RequestMapping(value = "/auth/isLogin", method = RequestMethod.POST)
     public Object isLogin() {
-        return SUCCESS_TIP;
+        long uid =JwtTokenUtil.getClientUserIdFromToken();
+        return uid;
     }
 
 

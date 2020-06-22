@@ -96,7 +96,7 @@ public class WxMpConfiguration {
         WxMenuButton button1=new WxMenuButton();
         button1.setName("视你广告");
         button1.setType("view");
-        button1.setUrl("http://joeyjava.iask.in/advertising/home1.html");  //必须添加http
+        button1.setUrl("http://www.szrfweb.wang/advertising/home1.html");  //必须添加http
 
         List<WxMenuButton> wxMenuButtons = new ArrayList<>();
         wxMenuButtons.add(button1);
