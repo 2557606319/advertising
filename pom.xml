@@ -255,7 +255,7 @@
         <profile>
             <id>test</id>
             <properties>
-                <spring.active>test</spring.active>
+                <springz.active>test</springz.active>
             </properties>
         </profile>
         <profile>

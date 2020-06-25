@@ -76,6 +76,7 @@ public class RestVideoController extends BaseController {
      * @throws IOException
      */
     @PostMapping("/auth/video/collect")
+    @Transactional
     public ResultBody getVideoInfo(String targetUrl, Integer typeId) throws IOException {
         long uid = JwtTokenUtil.getClientUserIdFromToken();
         targetUrl = new String(decoder.decode(targetUrl), "UTF-8");//解码 base64 url

@@ -34,7 +34,7 @@ public class HttpUtils {
             out.close();
             return true;
         }catch (Exception e){
-           log.error("download error ",e);
+           log.error("download error {},url:{}",e);
         }
         return false;
     }
