@@ -96,17 +96,12 @@ public class RestVideoController extends BaseController {
             result = new VideoDto();
             BeanUtils.copyProperties(videos.get(0), result);
         } else {
-            String body = HttpUtils.getHtml(targetUrl);//body为获取的html代码
-            Document doc = Jsoup.parse(body);
-
             //文章素材处理
-            VideoProcessor processor = VideoProcessorFactory.newInstance(targetUrl, doc);
+            VideoProcessor processor = VideoProcessorFactory.newInstance(targetUrl);
             try {
                 if (processor == null)
                     throw new GunsException(GunsRestExceptionEnum.NO_SUPPORT_VIDEO);
-
                 processor.downloadVideo();
-
                 Video video = new Video();
                 video.setTitle(processor.getTitle());
                 video.setTypeId(typeId);
@@ -247,6 +242,7 @@ public class RestVideoController extends BaseController {
 
     /**
      * 查看发布人id
+     *
      * @param id
      * @return
      */
@@ -254,9 +250,9 @@ public class RestVideoController extends BaseController {
     public ResultBody issueUserInfo(@PathVariable Long id) {
         VideoIssue videoIssue = videoIssueMapper.selectById(id);
         long userId = videoIssue.getUserId();
-        ClientUser clientUser=clientUserService.selectById(userId);
-        ClientUserDto clientUserDto=new ClientUserDto();
-        BeanUtils.copyProperties(clientUser,clientUserDto);
+        ClientUser clientUser = clientUserService.selectById(userId);
+        ClientUserDto clientUserDto = new ClientUserDto();
+        BeanUtils.copyProperties(clientUser, clientUserDto);
         return new ResultBody(clientUserDto);
     }
 
@@ -300,9 +296,9 @@ public class RestVideoController extends BaseController {
             issue.setUserId(uid);
             issue.setAdvertisingId(advId);
             where.clear();
-            where.put("advertising_id",advId);
+            where.put("advertising_id", advId);
             List<VideoTask> tasks = videoTaskMapper.selectByMap(where);
-            if(tasks.size()>0)issue.setTaskId(tasks.get(0).getId());
+            if (tasks.size() > 0) issue.setTaskId(tasks.get(0).getId());
             videoIssueMapper.insert(issue);
         } else {
             issue = videoIssue.get(0);

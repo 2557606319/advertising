@@ -8,6 +8,7 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 import org.jsoup.Jsoup;
+
 import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
@@ -16,25 +17,29 @@ import java.util.Map;
 @Slf4j
 public class HttpUtils {
 
-    public static boolean download(String targetUrl, String saveFileUrl, Map<String,String> headers){
-        try{
-            if(headers==null)
-                headers=new HashMap<>();
-            headers.put("User-Agent","Mozilla/5.0 (iPhone; CPU iPhone OS 11_0 like Mac OS X) AppleWebKit/604.1.38 (KHTML, like Gecko) Version/11.0 Mobile/15A372 Safari/604.1");
+    public static final String USER_AGENT_IPHONE = "Mozilla/5.0 (iPhone; CPU iPhone OS 11_0 like Mac OS X) AppleWebKit/604.1.38 (KHTML, like Gecko) Version/11.0 Mobile/15A372 Safari/604.1";
+
+    public static boolean download(String targetUrl, String saveFileUrl, Map<String, String> headers) {
+        try {
+            if (headers == null)
+                headers = new HashMap<>();
+            headers.put("User-Agent", USER_AGENT_IPHONE);
             BufferedInputStream in = Jsoup.connect(targetUrl).headers(headers).timeout(100000).ignoreContentType(true).execute().bodyStream();
-            File saveFIle=new File(saveFileUrl);
+            File saveFIle = new File(saveFileUrl);
             File fileParent = saveFIle.getParentFile();
-            if (!fileParent.exists()) { fileParent.mkdirs(); }
-            FileOutputStream fos=new FileOutputStream(saveFIle);
+            if (!fileParent.exists()) {
+                fileParent.mkdirs();
+            }
+            FileOutputStream fos = new FileOutputStream(saveFIle);
             OutputStream out = new BufferedOutputStream(fos);
             int b;
-            while ((b = in.read()) != -1){
+            while ((b = in.read()) != -1) {
                 out.write(b);
             }
             out.close();
             return true;
-        }catch (Exception e){
-           log.error("download error {},url:{}",e);
+        } catch (Exception e) {
+            log.error("download error {},url:{}", e);
         }
         return false;
     }
@@ -42,13 +47,14 @@ public class HttpUtils {
 
     /**
      * 下载html代码
+     *
      * @param url
      * @return
      */
     public static String getHtml(String url) {
-        url=url.trim();
-        if(url.indexOf("http")==-1){
-            url="http://"+url;
+        url = url.trim();
+        if (url.indexOf("http") == -1) {
+            url = "http://" + url;
         }
         // 创建Httpclient对象
         CloseableHttpClient httpClient = HttpClients.createDefault();
@@ -57,7 +63,7 @@ public class HttpUtils {
         try {
             // 创建Http Post请求
             HttpGet httpGet = new HttpGet(url);
-            httpGet.setHeader("User-Agent","Mozilla/5.0 (Windows NT 10.0; WOW64; rv:46.0) Gecko/20100101 Firefox/46.0");
+            httpGet.setHeader("User-Agent", "Mozilla/5.0 (Windows NT 10.0; WOW64; rv:46.0) Gecko/20100101 Firefox/46.0");
             // 执行http请求
             response = httpClient.execute(httpGet);
             resultString = EntityUtils.toString(response.getEntity(), "utf-8");
@@ -73,6 +79,20 @@ public class HttpUtils {
         }
 
         return resultString;
+    }
+
+
+    public static Map<String, String> urlArgsToMap(String url) {
+        Map<String, String> map = null;
+        if (url != null && url.indexOf("&") > -1 && url.indexOf("=") > -1) {
+            map = new HashMap<String, String>();
+            String[] arrTemp = url.split("&");
+            for (String str : arrTemp) {
+                String[] qs = str.split("=");
+                map.put(qs[0], qs[1]);
+            }
+        }
+        return map;
     }
 
 }

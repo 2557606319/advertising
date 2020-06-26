@@ -19,16 +19,12 @@ import java.util.Map;
 @Slf4j
 public abstract class VideoProcessor {
 
-    protected Document document;
-    protected String docStr;
     public String previews;//预览图
     protected String targetUrl;
 
     final Base64.Encoder encoder = Base64.getEncoder();//base64编码
 
-    VideoProcessor(Document document, String targetUrl){
-        this.document=document;
-        docStr=document.toString();
+    VideoProcessor(String targetUrl){
         this.targetUrl=targetUrl;
     }
     /**
@@ -77,10 +73,7 @@ public abstract class VideoProcessor {
     public void downloadVideo(){
         String videoUrl=getVideoUrl(targetUrl);
         videoUrl=GunsProperties.WEB_SERVER_PATH+"/videos/"+videoUrl;
-        Map<String, String> headers = new HashMap<>();
-        headers.put("Connection", "keep-alive");
-        headers.put("Host", "aweme.snssdk.com");
-        HttpUtils.download(getPlayVideoUrl(),videoUrl,headers);
+        HttpUtils.download(getPlayVideoUrl(),videoUrl,null);
         createTS(videoUrl);
     }
 
