@@ -1,10 +1,7 @@
 package com.stylefeng.guns.modular.system.service.processor;
 
 import com.stylefeng.guns.config.properties.GunsProperties;
-import com.stylefeng.guns.core.util.CommandUtils;
-import com.stylefeng.guns.core.util.DateUtil;
-import com.stylefeng.guns.core.util.HttpUtils;
-import com.stylefeng.guns.core.util.MD5Util;
+import com.stylefeng.guns.core.util.*;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
@@ -21,10 +18,11 @@ public abstract class VideoProcessor {
 
     public String previews;//预览图
     protected String targetUrl;
-
+    protected GunsProperties properties;
     final Base64.Encoder encoder = Base64.getEncoder();//base64编码
 
     VideoProcessor(String targetUrl){
+        properties = SpringUtil.getBean(GunsProperties.class);
         this.targetUrl=targetUrl;
     }
     /**
@@ -64,7 +62,7 @@ public abstract class VideoProcessor {
      * @param fileName
      */
     public void downloadImage(String targetUrl,String fileName){
-        HttpUtils.download(targetUrl, GunsProperties.WEB_SERVER_PATH+"/web-imgs/"+fileName,null);
+        HttpUtils.download(targetUrl, properties.getWebServerPath()+"/web-imgs/"+fileName,null);
     }
 
     /**
@@ -72,7 +70,7 @@ public abstract class VideoProcessor {
      */
     public void downloadVideo(){
         String videoUrl=getVideoUrl(targetUrl);
-        videoUrl=GunsProperties.WEB_SERVER_PATH+"/videos/"+videoUrl;
+        videoUrl=properties.getWebServerPath()+"/videos/"+videoUrl;
         HttpUtils.download(getPlayVideoUrl(),videoUrl,null);
         createTS(videoUrl);
     }

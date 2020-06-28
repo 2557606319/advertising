@@ -43,6 +43,8 @@ public class RestArticleController extends BaseController {
 
     final Base64.Decoder decoder = Base64.getDecoder();
 
+    @Autowired
+    GunsProperties properties;
 
     @Autowired
     private TypeMapper typeMapper;
@@ -121,7 +123,7 @@ public class RestArticleController extends BaseController {
 
         FileWriter writer;
         try {
-            File file = new File(GunsProperties.WEB_SERVER_PATH + "/article/" + url);
+            File file = new File(properties.getWebServerPath() + "/article/" + url);
             writer = new FileWriter(file);
             writer.write(doc.toString());
             writer.flush();

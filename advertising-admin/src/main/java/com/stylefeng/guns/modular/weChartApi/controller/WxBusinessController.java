@@ -48,6 +48,9 @@ public class WxBusinessController extends BaseController {
     WxMpProperties wxMpProperties;
 
     @Autowired
+    GunsProperties properties;
+
+    @Autowired
     WxPayService wxPayService;
 
     @Autowired
@@ -112,7 +115,7 @@ public class WxBusinessController extends BaseController {
             ClientUser clientUser;
             if(clientUsers.size()==0){
                 String fileName= DateUtil.getDays()+"/"+UUID.randomUUID().toString();
-                HttpUtils.download(userInfo.getString("headimgurl"), GunsProperties.WEB_SERVER_PATH+"/web-imgs/"+fileName,null);
+                HttpUtils.download(userInfo.getString("headimgurl"), properties.getWebServerPath()+"/web-imgs/"+fileName,null);
                 clientUser=new ClientUser();
                 clientUser.setOpenId(openId);
                 clientUser.setRefreshToken(refreshToken);

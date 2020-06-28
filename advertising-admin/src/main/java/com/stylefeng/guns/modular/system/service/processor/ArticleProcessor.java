@@ -2,6 +2,7 @@ package com.stylefeng.guns.modular.system.service.processor;
 
 import com.stylefeng.guns.config.properties.GunsProperties;
 import com.stylefeng.guns.core.util.HttpUtils;
+import com.stylefeng.guns.core.util.SpringUtil;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
@@ -19,10 +20,12 @@ public abstract class ArticleProcessor {
     protected String docStr;
     protected String firstThreeImgUrl="";//前三张图片的url
     protected String targetUrl;
+    protected GunsProperties properties;
 
     final Base64.Encoder encoder = Base64.getEncoder();//base64编码
 
     ArticleProcessor(Document document,String targetUrl){
+        properties=SpringUtil.getBean(GunsProperties.class);
         this.document=document;
         docStr=document.toString();
         this.targetUrl=targetUrl;
@@ -51,7 +54,7 @@ public abstract class ArticleProcessor {
      * @param fileName
      */
     public void downloadImage(String targetUrl,String fileName){
-        HttpUtils.download(targetUrl, GunsProperties.WEB_SERVER_PATH+"/web-imgs/"+fileName,null);
+        HttpUtils.download(targetUrl, properties.getWebServerPath()+"/web-imgs/"+fileName,null);
     }
 
     /**

@@ -33,6 +33,9 @@ import java.util.UUID;
 @Slf4j
 public class UploadController {
 
+	@Autowired
+	GunsProperties properties;
+
 	/**
 	 * 图片上传接口
 	 * @param picture
@@ -42,7 +45,7 @@ public class UploadController {
 	public ResponseEntity<?> upload(@RequestPart("file") MultipartFile picture,String type){
 	        String pictureName = DateUtil.getDays() + "/" +UUID.randomUUID().toString() + "."+picture.getContentType().substring(picture.getContentType().lastIndexOf("/")+1);
 	        try {
-	            String fileSavePath =  GunsProperties.WEB_SERVER_PATH + "/web-imgs/" + pictureName;
+	            String fileSavePath =  properties.getWebServerPath() + "/web-imgs/" + pictureName;
 				File saveFile =  new File(fileSavePath);
 	            if(!saveFile.getParentFile().exists())saveFile.getParentFile().mkdirs();
 	            picture.transferTo(saveFile);
