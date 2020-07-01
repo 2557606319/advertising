@@ -24,8 +24,8 @@ public class GunsProperties {
 
     public static final String PREFIX = "guns";
 
-//    public static final String WEB_SERVER_PATH="/www/server/nginx-html/advertising";
-//    public static final String WEB_SERVER_PATH="/usr/local/var/www/advertising";
+//    public static final String WEB_SERVER_PATH="";
+//    public static final String WEB_SERVER_PATH="";
 
     private String webServerPath;
 

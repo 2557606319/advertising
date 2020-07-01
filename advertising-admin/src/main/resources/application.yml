@@ -12,7 +12,6 @@ guns:
 spring:
   profiles:
     active: local
-
   mvc:
     static-path-pattern: /static/**
     view:
@@ -39,12 +38,10 @@ wx:
   mp:
     user-info-url: https://api.weixin.qq.com/sns/userinfo #拉取微信用户信息地址
     login-a-token-url: https://api.weixin.qq.com/sns/oauth2/access_token?appid=wxfb3355958b897680&secret=acb42d72ebad66048f81d84e2318c2e8 #登录授权获取code后，请求以下链接获取access_token
-#    login-suc-url: http://www.szrfweb.wang/advertising/home5.html #登录授权成功跳转地址
-    login-suc-url: http://joeyjava.ticp.io/advertising/home5.html #登录授权成功跳转地址
+    login-suc-url: http://www.szrfweb.wang/advertising/home5.html #登录授权成功跳转地址
     configs:
       - appId: wxfb3355958b897680 #公众号的appid
         secret: acb42d72ebad66048f81d84e2318c2e8 #公众号的appsecret
-#        secret: 15d86c2286392e6ce2398553142dfa0b #公众号的appsecret
         token: WfhnJN1Y6hke3T1F33N5k5K13Z5ui3zE #（接口配置里的Token值）
         aesKey: qHrUCAMBYXJEGX45kmMJFaMwP1wRTLeycZO8mAKpTrs #（接口配置里的EncodingAESKey值）
   pay:
@@ -67,10 +64,13 @@ spring:
     url: jdbc:mysql://localhost:3306/advertising_test?autoReconnect=true&useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=CONVERT_TO_NULL&useSSL=false&serverTimezone=UTC
     username: root
     password: 123123
-#    username: advertising_test
-#    password: E4iFAZBrCbs3jTms
     db-name: advertising-test #用来搜集数据库的所有表
     filters: wall,mergeStat
+guns:
+  web-server-path: /usr/local/var/www/advertising
+wx:
+  mp:
+    login-suc-url: http://joeyjava.ticp.io/advertising/home5.html #登录授权成功跳转地址
 
 #多数据源情况的配置
 #guns:
@@ -91,7 +91,7 @@ spring:
     url: jdbc:mysql://139.155.71.242:3306/advertising?autoReconnect=true&useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=CONVERT_TO_NULL&useSSL=false&serverTimezone=UTC
     username: advertising
     password: btM36WXJnFtH4mCf
-    db-name: advertising #用来搜集数据库的所有表
+    db-name: advertising
     filters: wall,mergeStat
 
 ---
@@ -112,5 +112,7 @@ spring:
       url: jdbc:mysql://127.0.0.1:3306/advertising?autoReconnect=true&useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=CONVERT_TO_NULL&useSSL=false&serverTimezone=UTC
       username: advertising
       password: btM36WXJnFtH4mCf
+      db-name: advertising
       filters: wall,mergeStat
-
+guns:
+  web-server-path: /www/server/nginx-html/advertising
