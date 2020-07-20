@@ -17,6 +17,7 @@ public enum GunsRestExceptionEnum implements ServiceExceptionEnum {
     UPLOAD_ERROR(400, "上传异常"),
     UPD_TASK_ERR(400, "发布广告任务失败"),
     ARGS_ERR(400, "参数填写错误"),
+    PAY_TYPE_NOT_EXIST(400, "支付类型不存在"),
 
     SERVER_ERROR(500, "服务器异常");
 

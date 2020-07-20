@@ -46,15 +46,15 @@ wx:
         aesKey: qHrUCAMBYXJEGX45kmMJFaMwP1wRTLeycZO8mAKpTrs #（接口配置里的EncodingAESKey值）
   pay:
     appId: wxfb3355958b897680 #微信公众号的appid
-    mchId: 1561935731 #微信支付商户号
+    mchId: 1527166081 #微信支付商户号
     mchKey: I5FE19P9R9r0ue0BTuRI0Kl5Ae6bUcrb #微信支付商户密钥
     subAppId: #服务商模式下的子商户公众账号ID
     subMchId: #服务商模式下的子商户号
-    #keyPath:  classpath:cert/apiclient_cert.p12 # p12证书的位置，可以指定绝对路径，也可以指定类路径（以classpath:开头）
-    #keyPath:  C:\Users\26672\IdeaProjects\netwhale_shop\netwhale_shop\netWhale-parent\shop-admin\src\main\resources\cert\apiclient_cert.p12 # p12证书的位置，可以指定绝对路径，也可以指定类路径（以classpath:开头）
-    keyPath: C:\cert\apiclient_cert.p12
-    notifyUrl: http://m.netwhale.cn/wx-shop/rest/wx/update_submitOrder
-    refundNotifyUrl: http://m.netwhale.cn/wx-shop/rest/wx/refundNotify
+    keyPath:  classpath:cert/apiclient_cert.p12 # p12证书的位置，可以指定绝对路径，也可以指定类路径（以classpath:开头）
+    #keyPath: C:\Users\26672\IdeaProjects\netwhale_shop\netwhale_shop\netWhale-parent\shop-admin\src\main\resources\cert\apiclient_cert.p12 # p12证书的位置，可以指定绝对路径，也可以指定类路径（以classpath:开头）
+    #keyPath: C:\cert\apiclient_cert.p12
+    notifyUrl: http://www.szrfweb.wang/restApi/wx/pay/notify
+#    refundNotifyUrl: http://m.netwhale.cn/wx-shop/rest/wx/refundNotify
 
 ---
 
@@ -71,6 +71,8 @@ guns:
 wx:
   mp:
     login-suc-url: http://joeyjava.ticp.io/advertising/home5.html #登录授权成功跳转地址
+  pay:
+    notifyUrl: http://joeyjava.iask.in/restApi/wx/pay/notify
 
 #多数据源情况的配置
 #guns:

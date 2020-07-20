@@ -14,8 +14,6 @@ import com.stylefeng.guns.modular.system.service.processor.VideoProcessor;
 import com.stylefeng.guns.modular.system.service.processor.VideoProcessorFactory;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -119,6 +117,7 @@ public class RestVideoController extends BaseController {
                 BeanUtils.copyProperties(video, result);
             } catch (Exception e) {
                 log.error("video采集失败，分享url地址为：{},异常信息：{}", targetUrl, e);
+                e.printStackTrace();
             }
         }
 

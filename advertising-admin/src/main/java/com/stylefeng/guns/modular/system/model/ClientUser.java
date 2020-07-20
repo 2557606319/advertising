@@ -75,9 +75,9 @@ public class ClientUser extends Model<ClientUser> {
      * vip到期时间
      */
     @TableField("vip_expire")
-    private Date vipExpire;
+    private String vipExpire;
     /**
-     * 代理登记 0-青铜 1-黄金 2-钻石
+     * 代理等级 0-青铜 1-黄金 2-钻石
      */
     @TableField("agency_level")
     private Integer agencyLevel;

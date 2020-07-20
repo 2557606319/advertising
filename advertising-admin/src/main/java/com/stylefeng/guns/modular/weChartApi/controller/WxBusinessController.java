@@ -147,58 +147,6 @@ public class WxBusinessController extends BaseController {
         }
     }
 
-    /**
-     *支付成功后  修改订单信息
-     */
-    @PostMapping(value = "/updateSubmitOrder/{orderId}")
-    @ResponseBody
-    public boolean updateSubmitOrder(@PathVariable("orderId") String orderId, WxPayRefundRequest wxPayRefundRequest) throws WxPayException{
-        return true;
-    }
 
-    /**
-     * 支付成功回调函数(此函数会被执行多次，如果支付状态已经修改为已支付，则下次再调的时候判断是否已经支付，如果已经支付了，则什么也执行)
-     * @return
-     * @throws Exception
-     */
-    @PostMapping(value = "/paySuccessCallback")
-    @ResponseBody
-    public String paySuccessCallback(@RequestBody String xmlData) throws Exception{
-        WxPayRefundRequest wxPayRefundRequest=new WxPayRefundRequest();
-        Map<String, String> map = parseXml(xmlData);
-        log.info("微信支付回调========="+map.toString());
-        if("SUCCESS".equals(map.get("return_code"))){
-            String orderId=map.get("out_trade_no");
-            log.info("订单编号====================="+orderId);
-//            try {
-//                iProductService.updateSubmitOrder(orderId,wxPayRefundRequest);
-//            } catch (WxPayException e) {
-//                log.info("库存不足，退款至微信账户",e);
-//                return "<xml><return_code><![CDATA[SUCCESS]]></return_code><return_msg><![CDATA[OK]]></return_msg></xml>";
-//            }
-
-        }
-        return "<xml><return_code><![CDATA[SUCCESS]]></return_code><return_msg><![CDATA[OK]]></return_msg></xml>";
-    }
-
-
-    /**
-     * 解析xml文件
-     * @param xmlData
-     * @return  Map<String,String>
-     * @throws Exception
-     */
-    public Map<String,String> parseXml(String xmlData)throws Exception{
-        Map<String, String> map = new HashMap<String, String>();
-        Document doc = null;
-        doc = DocumentHelper.parseText(new String(xmlData.getBytes("gbk"),"utf-8")); // 将字符串转为XML
-        Element rootElt = doc.getRootElement(); // 获取根节点
-        @SuppressWarnings("unchecked")
-        List<Element> list = rootElt.elements();// 获取根节点下所有节点
-        for (Element element : list) { // 遍历节点
-            map.put(element.getName(), element.getText()); // 节点的name为map的key，text为map的value
-        }
-        return map;
-    }
 
 }
