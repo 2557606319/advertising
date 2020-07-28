@@ -9,6 +9,7 @@ import com.stylefeng.guns.modular.api.dto.ClientUserDto;
 import com.stylefeng.guns.modular.api.vo.LevelInfoVo;
 import com.stylefeng.guns.modular.api.vo.ResultBody;
 import com.stylefeng.guns.modular.system.dao.*;
+import com.stylefeng.guns.modular.system.enums.PayAmountType;
 import com.stylefeng.guns.modular.system.enums.Settings;
 import com.stylefeng.guns.modular.system.model.*;
 import com.stylefeng.guns.modular.system.service.IAdvertisingService;
@@ -61,7 +62,7 @@ public class RestUserController extends BaseController {
         ClientUser clientUser = clientUserService.selectById(uid);
         Map<String,Object> result=new HashMap<>();
         result.put("level",clientUser.getAgencyLevel());
-        result.put("levelInfo",settingMapper.listByPkey(Settings.agent_level.toString()));
+        result.put("levelInfo", PayAmountType.toJsonObjects());
         return new ResultBody(result);
     }
 
