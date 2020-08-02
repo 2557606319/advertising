@@ -87,7 +87,7 @@ public abstract class VideoProcessor {
         try {
             CommandUtils.process(ffmpegCommand);
         } catch (Exception e) {
-           log.error("生成 .ts 流文件失败，mp4文件名：{}",mp4Path);
+           log.error("生成 .ts 流文件失败，mp4文件名：{},exception:{}",mp4Path,e);
         }
     }
 
