@@ -78,7 +78,6 @@ public class WxPayController extends BaseController {
             if ("SUCCESS".equals(wxPayOrderNotifyResult.getResultCode())) {
                 isPayOk = true;
             }
-//            log.info("解析数据:" + wxPayOrderNotifyResult.toString());
         } catch (WxPayException e) {
             e.printStackTrace();
         }
@@ -96,7 +95,6 @@ public class WxPayController extends BaseController {
             } else {
                 openAgentPaySuccess(order, payAmountType);
             }
-            System.out.println("===============付款成功，业务处理完毕==============");
             // 通知微信已经收到消息，不要再给我发消息了，否则微信会8连击调用本接口
             noticeStr = setXML("SUCCESS", "OK");
             log.info("收到通知返回给微信api信息:-----------" + noticeStr);
@@ -125,9 +123,9 @@ public class WxPayController extends BaseController {
         clientUser.setVip(1);
         Date currentDate = new Date();
         if (payAmountType.equals(PayAmountType.VIP_MONTH)) {
-            DateUtils.addMonths(currentDate, 1);
+            DateUtils.addMonths(currentDate, 2);
         } else {
-            DateUtils.addMonths(currentDate, 12);
+            DateUtils.addMonths(currentDate, 13);
         }
         clientUser.setVipExpire(DateFormatUtils.format(currentDate, "yyyy-MM-dd"));
         clientUserMapper.updateById(clientUser);
