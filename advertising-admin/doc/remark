@@ -1,0 +1,3 @@
+2020-09-04号日志
+1、client_user数据库表结构改动
+    增加字段：qr_img,tg_img1,tg_img2

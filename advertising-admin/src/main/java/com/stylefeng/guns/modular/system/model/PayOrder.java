@@ -40,6 +40,12 @@ public class PayOrder extends Model<PayOrder> {
     private String payAmountType;
 
     /**
+     * 订单类型
+     * 0-充值 1-提现
+     */
+    private Integer type;
+
+    /**
      * 支付状态  0-待支付  1-支付成功 2-支付失败 3-已退款
      */
     private Integer status;

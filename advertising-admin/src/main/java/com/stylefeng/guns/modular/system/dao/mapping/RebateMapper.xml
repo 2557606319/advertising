@@ -4,14 +4,14 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.stylefeng.guns.modular.system.model.Rebate">
-        <id column="id" property="id" />
-        <result column="user_id" property="userId" />
-        <result column="target_user_id" property="targetUserId" />
-        <result column="pro_money" property="proMoney" />
-        <result column="commission" property="commission" />
-        <result column="ratio" property="ratio" />
-        <result column="gold" property="gold" />
-        <result column="ctime" property="ctime" />
+        <id column="id" property="id"/>
+        <result column="user_id" property="userId"/>
+        <result column="target_user_id" property="targetUserId"/>
+        <result column="pro_money" property="proMoney"/>
+        <result column="commission" property="commission"/>
+        <result column="ratio" property="ratio"/>
+        <result column="gold" property="gold"/>
+        <result column="ctime" property="ctime"/>
     </resultMap>
 
     <!-- 通用查询结果列 -->
@@ -19,4 +19,39 @@
         id, user_id, target_user_id, pro_money, commission, ratio, gold, ctime
     </sql>
 
+    <select id="countLowerCommissionByDate" resultType="BigDecimal">
+        select COALESCE(sum(commission),0) from tb_rebate where user_id = #{userId} and target_user_id not in
+        <foreach collection="underlingIds" index="index" item="i" open="("
+                 separator="," close=")">
+            #{i}
+        </foreach>
+        <if test="date!=null">
+            and ctime like CONCAT(#{date},'%')
+        </if>
+    </select>
+
+    <select id="countCommissionByDate" resultType="java.math.BigDecimal">
+        select COALESCE(sum(commission),0) from tb_rebate where user_id = #{userId} and target_user_id in
+        <foreach collection="underlingIds" index="index" item="i" open="("
+                 separator="," close=")">
+            #{i}
+        </foreach>
+        <if test="date!=null">
+            and ctime like CONCAT(#{date},'%')
+        </if>
+    </select>
+
+    <select id="rebateListByPid" resultType="com.stylefeng.guns.modular.api.vo.RebateVo">
+        select
+        a.id, a.user_id as userId, a.target_user_id as targetUserId,
+        a.pro_money as proMoney,a.commission, a.ratio, a.gold, a.ctime,
+        b.nick as targetNick,b.avatar as targetAvatar
+        from tb_rebate as a
+        left join tb_client_user as b on a.target_user_id = b.id
+        where a.user_id = #{userId}
+        <if test="date!=null">
+            and a.ctime like CONCAT(#{date},'%')
+        </if>
+        order by a.ctime desc
+    </select>
 </mapper>

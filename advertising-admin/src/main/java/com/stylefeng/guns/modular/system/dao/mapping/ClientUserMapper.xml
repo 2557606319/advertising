@@ -4,30 +4,31 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.stylefeng.guns.modular.system.model.ClientUser">
-        <id column="id" property="id" />
-        <result column="nick" property="nick" />
-        <result column="avatar" property="avatar" />
-        <result column="industry" property="industry" />
-        <result column="professional" property="professional" />
-        <result column="phone" property="phone" />
-        <result column="wxqr" property="wxqr" />
-        <result column="email" property="email" />
-        <result column="gold_balance" property="goldBalance" />
-        <result column="sum_commission" property="sumCommission" />
-        <result column="sum_lower" property="sumLower" />
-        <result column="vip" property="vip" />
-        <result column="vip_expire" property="vipExpire" />
-        <result column="agency_level" property="agencyLevel" />
-        <result column="earnings1" property="earnings1" />
-        <result column="earnings2" property="earnings2" />
-        <result column="earnings3" property="earnings3" />
-        <result column="ctime" property="ctime" />
-        <result column="pid" property="pid" />
+        <id column="id" property="id"/>
+        <result column="nick" property="nick"/>
+        <result column="avatar" property="avatar"/>
+        <result column="industry" property="industry"/>
+        <result column="professional" property="professional"/>
+        <result column="phone" property="phone"/>
+        <result column="wxqr" property="wxqr"/>
+        <result column="email" property="email"/>
+        <result column="gold_balance" property="goldBalance"/>
+        <result column="sum_commission" property="sumCommission"/>
+        <result column="sum_lower" property="sumLower"/>
+        <result column="vip" property="vip"/>
+        <result column="vip_expire" property="vipExpire"/>
+        <result column="agency_level" property="agencyLevel"/>
+        <result column="earnings1" property="earnings1"/>
+        <result column="earnings2" property="earnings2"/>
+        <result column="earnings3" property="earnings3"/>
+        <result column="ctime" property="ctime"/>
+        <result column="pid" property="pid"/>
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, nick, avatar, industry, professional, phone, wxqr, email, gold_balance, sum_commission, sum_lower, vip, vip_expire, agency_level, earnings1, earnings2, earnings3, ctime, pid
+        id, nick, avatar, industry, professional, phone, wxqr, email, gold_balance, sum_commission, sum_lower, vip,
+        vip_expire, agency_level, earnings1, earnings2, earnings3, ctime, pid
     </sql>
 
 </mapper>

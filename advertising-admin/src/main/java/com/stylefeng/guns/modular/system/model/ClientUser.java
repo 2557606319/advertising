@@ -58,7 +58,7 @@ public class ClientUser extends Model<ClientUser> {
     @TableField("gold_balance")
     private Long goldBalance;
     /**
-     * 总获佣金
+     * 总获直推佣金，总获佣金=（直推佣金+下级佣金）
      */
     @TableField("sum_commission")
     private BigDecimal sumCommission;
@@ -77,7 +77,7 @@ public class ClientUser extends Model<ClientUser> {
     @TableField("vip_expire")
     private String vipExpire;
     /**
-     * 代理等级 0-青铜 1-黄金 2-钻石
+     * 代理等级 1-青铜 2-黄金 3-钻石
      */
     @TableField("agency_level")
     private Integer agencyLevel;
@@ -93,13 +93,15 @@ public class ClientUser extends Model<ClientUser> {
      * 三层返佣比例
      */
     private BigDecimal earnings3;
-    private Date ctime;
+    private String ctime;
     /**
      * 邀请人
      */
     private Long pid;
 
-    /**  微信 依赖字段 */
+    /**
+     * 微信 依赖字段
+     */
     @TableField("refresh_token")
     private String refreshToken;
 
@@ -109,6 +111,21 @@ public class ClientUser extends Model<ClientUser> {
     @TableField("open_id")
     private String openId;
 
+    /**
+     * 邀请二维码
+     */
+    @TableField("qr_img")
+    private String qrImg;
+    /**
+     * 推广图1
+     */
+    @TableField("tg_img1")
+    private String tgImg1;
+    /**
+     * 推广图2
+     */
+    @TableField("tg_img2")
+    private String tgImg2;
 
     @Override
     protected Serializable pkVal() {

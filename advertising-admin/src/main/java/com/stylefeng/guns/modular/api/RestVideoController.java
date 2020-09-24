@@ -317,6 +317,9 @@ public class RestVideoController extends BaseController {
         videoIssues.forEach((issue) -> {
             ids.add(issue.getVideoId());
         });
+        if(ids.size()==0){
+            return new ResultBody(null);
+        }
         return new ResultBody(videoMapper.selectBatchIds(ids));
     }
 

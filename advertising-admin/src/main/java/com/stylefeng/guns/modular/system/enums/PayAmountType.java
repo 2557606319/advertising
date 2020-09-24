@@ -11,11 +11,11 @@ import java.math.BigDecimal;
  */
 @Getter
 public enum PayAmountType {
-    VIP_MONTH(new BigDecimal(0.01), "月度vip付费金额", 1, 0, null),
-    VIP_YEARS(new BigDecimal(0.02), "年度vip付费金额", 2, 1, null),
-    AGENT_1(new BigDecimal(0.1), "一级代理付费金额", 2, 0, AgentRebate.AGENT_1),
-    AGENT_2(new BigDecimal(0.2), "二级代理付费金额", 2, 1, AgentRebate.AGENT_2),
-    AGENT_3(new BigDecimal(0.3), "三级代理付费金额", 2, 2, AgentRebate.AGENT_3);
+    VIP_MONTH(new BigDecimal(0.01), "月度vip付费金额", 1, 0, null, null),
+    VIP_YEARS(new BigDecimal(0.02), "年度vip付费金额", 2, 1, null, null),
+    AGENT_1(new BigDecimal(0.1), "一级代理付费金额", 2, 0, AgentRebate.AGENT_1, 2000),
+    AGENT_2(new BigDecimal(0.2), "二级代理付费金额", 2, 1, AgentRebate.AGENT_2, 7000),
+    AGENT_3(new BigDecimal(0.3), "三级代理付费金额", 2, 2, AgentRebate.AGENT_3, null);
 
     BigDecimal amount;
     String message;
@@ -30,16 +30,22 @@ public enum PayAmountType {
     int level;
 
     /**
+     * 升至高一级条件
+     */
+    Integer upgrade;
+
+    /**
      * 代理返佣
      */
     AgentRebate agentRebate;
 
-    PayAmountType(BigDecimal amount, String message, int type, int level, AgentRebate agentRebate) {
+        PayAmountType(BigDecimal amount, String message, int type, int level, AgentRebate agentRebate, Integer upgrade) {
         this.amount = amount;
         this.message = message;
         this.type = type;
         this.level = level;
         this.agentRebate = agentRebate;
+        this.upgrade = upgrade;
     }
 
     public static JSONArray toJsonObjects() {

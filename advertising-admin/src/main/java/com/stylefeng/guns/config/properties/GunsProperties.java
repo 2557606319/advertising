@@ -24,10 +24,9 @@ public class GunsProperties {
 
     public static final String PREFIX = "guns";
 
-//    public static final String WEB_SERVER_PATH="";
-//    public static final String WEB_SERVER_PATH="";
-
     private String webServerPath;
+
+    private String h5LoginUrl;
 
     private Boolean kaptchaOpen = false;
 

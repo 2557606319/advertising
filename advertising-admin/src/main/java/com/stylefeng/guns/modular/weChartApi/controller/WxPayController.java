@@ -1,16 +1,19 @@
 package com.stylefeng.guns.modular.weChartApi.controller;
 
+import com.github.binarywang.wxpay.bean.entpay.EntPayRequest;
 import com.github.binarywang.wxpay.bean.notify.WxPayOrderNotifyResult;
 import com.github.binarywang.wxpay.exception.WxPayException;
 import com.github.binarywang.wxpay.service.WxPayService;
 import com.stylefeng.guns.core.base.controller.BaseController;
 import com.stylefeng.guns.modular.system.dao.ClientUserMapper;
 import com.stylefeng.guns.modular.system.dao.PayOrderMapper;
+import com.stylefeng.guns.modular.system.dao.RebateMapper;
 import com.stylefeng.guns.modular.system.enums.AgentRebate;
 import com.stylefeng.guns.modular.system.enums.PayAmountType;
 import com.stylefeng.guns.modular.system.enums.PayStatus;
 import com.stylefeng.guns.modular.system.model.ClientUser;
 import com.stylefeng.guns.modular.system.model.PayOrder;
+import com.stylefeng.guns.modular.system.model.Rebate;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.time.DateUtils;
@@ -28,6 +31,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -50,6 +54,9 @@ public class WxPayController extends BaseController {
     @Autowired
     ClientUserMapper clientUserMapper;
 
+    @Autowired
+    RebateMapper rebateMapper;
+
     /**
      * 接受微信支付返回通知
      *
@@ -57,7 +64,7 @@ public class WxPayController extends BaseController {
      * @param response
      */
     @RequestMapping("/notify")
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public void PayResultNotify(HttpServletRequest request, HttpServletResponse response) throws IOException {
         log.info("微信支付返回通知函数开始---------------------");
         InputStream inStream = request.getInputStream();
@@ -129,6 +136,7 @@ public class WxPayController extends BaseController {
         }
         clientUser.setVipExpire(DateFormatUtils.format(currentDate, "yyyy-MM-dd"));
         clientUserMapper.updateById(clientUser);
+        agentRebate(clientUser, order.getId(), order.getMoney());
     }
 
     /**
@@ -145,6 +153,55 @@ public class WxPayController extends BaseController {
         clientUser.setEarnings2(rebate.getRate2());
         clientUser.setEarnings3(rebate.getRate3());
         clientUserMapper.updateById(clientUser);
+    }
+
+    /**
+     * 代理返佣
+     *
+     * @param payUser 支付人
+     * @param amount  产生金额
+     */
+    public void agentRebate(ClientUser payUser, Long orderId, BigDecimal amount) {
+        ClientUser userLevel1 = clientUserMapper.selectById(payUser.getPid());
+        if (userLevel1 == null) return;
+        BigDecimal rebateAmount = disposeRebate(userLevel1, payUser.getId(), orderId, userLevel1.getEarnings1(), amount);
+        clientUserMapper.updateSumCommission(rebateAmount, userLevel1.getId());
+
+        ClientUser userLevel2 = clientUserMapper.selectById(userLevel1.getPid());
+        if (userLevel2 == null) return;
+        rebateAmount = disposeRebate(userLevel2, payUser.getId(), orderId, userLevel2.getEarnings2(), amount);
+        clientUserMapper.updateSumLower(rebateAmount, userLevel2.getId());
+
+        ClientUser userLevel3 = clientUserMapper.selectById(userLevel2.getPid());
+        if (userLevel3 == null) return;
+        rebateAmount = disposeRebate(userLevel3, payUser.getId(), orderId, userLevel3.getEarnings3(), amount);
+        clientUserMapper.updateSumLower(rebateAmount, userLevel3.getId());
+
+    }
+
+    /**
+     * 处理返佣
+     *
+     * @param user         返佣用户
+     * @param targetUserId 目标消费用户
+     * @param orderId      支付订单id
+     * @param rebateRate   返佣比率
+     * @param amount       消费金额
+     */
+    public BigDecimal disposeRebate(ClientUser user, Long targetUserId, Long orderId, BigDecimal rebateRate, BigDecimal amount) {
+        BigDecimal zero = new BigDecimal(0);
+        if (rebateRate.compareTo(zero) != 1 || amount.compareTo(zero) != 1) return zero;
+        BigDecimal rebateAmount = amount.multiply(rebateRate);
+        Rebate rebate = new Rebate();
+        rebate.setUserId(user.getId());
+        rebate.setTargetUserId(targetUserId);
+        rebate.setProMoney(amount);
+        rebate.setCommission(rebateAmount);
+        rebate.setRatio(rebateRate);
+        rebate.setGold(rebateAmount.multiply(new BigDecimal(10)).longValue());
+        rebate.setOrderId(orderId);
+        rebateMapper.insert(rebate);
+        return rebateAmount;
     }
 
 //

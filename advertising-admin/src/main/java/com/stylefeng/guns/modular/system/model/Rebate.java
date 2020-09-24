@@ -25,12 +25,12 @@ public class Rebate extends Model<Rebate> {
     @TableId(value = "id", type = IdType.AUTO)
     private Long id;
     /**
-     * 收益用户
+     * 返佣用户
      */
     @TableField("user_id")
     private Long userId;
     /**
-     * 目标用户
+     * 消费用户
      */
     @TableField("target_user_id")
     private Long targetUserId;
@@ -48,10 +48,17 @@ public class Rebate extends Model<Rebate> {
      */
     private BigDecimal ratio;
     /**
-     * 获得金币
+     * 获得金币，1元=10金币；
      */
     private Long gold;
+
     private Date ctime;
+
+    /**
+     * 支付订单id
+     */
+    @TableField("order_id")
+    private Long orderId;
 
 
     public Long getId() {
@@ -135,5 +142,13 @@ public class Rebate extends Model<Rebate> {
         ", gold=" + gold +
         ", ctime=" + ctime +
         "}";
+    }
+
+    public Long getOrderId() {
+        return orderId;
+    }
+
+    public void setOrderId(Long orderId) {
+        this.orderId = orderId;
     }
 }
