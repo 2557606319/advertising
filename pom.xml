@@ -41,7 +41,7 @@
         <mysql-connector-java.version>8.0.11</mysql-connector-java.version>
         <jwt.version>0.9.0</jwt.version>
         <hutool.version>4.1.1</hutool.version>
-        <httpcomponents.version>4.5.2</httpcomponents.version>
+        <httpcomponents.version>4.5.13</httpcomponents.version>
         <jsoup.version>1.11.3</jsoup.version>
         <okhttp.version>3.13.1</okhttp.version>
     </properties>
