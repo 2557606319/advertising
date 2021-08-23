@@ -42,7 +42,7 @@
         <jwt.version>0.9.0</jwt.version>
         <hutool.version>4.1.1</hutool.version>
         <httpcomponents.version>4.5.2</httpcomponents.version>
-        <jsoup.version>1.11.3</jsoup.version>
+        <jsoup.version>1.14.2</jsoup.version>
         <okhttp.version>3.13.1</okhttp.version>
     </properties>
 
